@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Підбір кота за вашим способом життя: графік роботи, житло, клімат, догляд за шерстю й характер.">
+    <title>Кому яка порода підходить — МурГід</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a class="logo" href="index.html">🐾 МурГід</a>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="breeds.html">Породи</a></li>
+                    <li><a class="active" href="choose.html">Кому підходить</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Вступ: чому не кожен кіт підходить кожному -->
+        <div class="intro">
+            <h1>Кожному — свого кота</h1>
+            <p class="lead">Буває так: ви побачили фото пухнастого красеня з бурштиновими очима — і серце вже все вирішило. Але кіт — не картинка з календаря. Це жива істота зі своїм характером, звичками й потребами, і те, що одному господареві здається милою рисою, іншого може зовсім виснажити.</p>
+            <p class="lead">Не всі коти підходять усім людям — і це цілком нормально. Одні породи обожнюють компанію й сумують, коли лишаються на самоті навіть на кілька годин. Інші спокійно чекають господаря з роботи, згорнувшись клубочком на підвіконні. Комусь потрібен простір для перегонів і лазіння, а комусь вистачає затишного кутка й м'якої лежанки. Довгошерстим красеням нелегко в спеку, а короткошерсті теплолюбні коти мерзнуть у прохолодній оселі. Одних треба розчісувати щодня, інших — лише час від часу погладжувати.</p>
+            <p class="lead">У кожної людини теж свої умови: графік роботи, розмір квартири, клімат за вікном, діти чи інші тварини в домі, бажання тиші або, навпаки, веселої метушні. Коли характер кота збігається з ритмом вашого життя, народжується справжня дружба — довга, тепла й щаслива для обох.</p>
+        </div>
+
+        <!-- Опитування -->
+        <section>
+            <h2>Ці запитання допоможуть вам підібрати кота</h2>
+            <p class="text">Відмітьте варіанти, які найбільше схожі на ваше життя, і натисніть «Готово». Ми порівняємо відповіді з характером і потребами шести порід і підкажемо, хто з них почуватиметься поруч із вами найщасливіше.</p>
+
+            <!--
+                Як працює підбір:
+                data-points — скільки балів відповідь дає породам (порода:бали),
+                data-no     — породи, які з такою відповіддю точно не підходять.
+                Перемагає порода з найбільшою сумою балів. Код — у js/choose.js
+            -->
+            <form class="quiz" id="quiz">
+
+                <fieldset>
+                    <legend>1. Скільки часу ви проводите на роботі й поза домом?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="work" required
+                                   data-points="siamese:2 bengal:2 maincoon:1">
+                            Майже весь день удома або працюю віддалено
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="work"
+                                   data-points="british:1 fold:1 persian:1 maincoon:1">
+                            Звичайний робочий день — близько 8 годин
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="work"
+                                   data-points="british:2 persian:1 fold:1"
+                                   data-no="siamese bengal">
+                            Працюю понад 10 годин, часто їжджу у відрядження
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>2. Яке у вас житло?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="home" required
+                                   data-points="british:1 persian:1 siamese:1 fold:1 bengal:-1"
+                                   data-no="maincoon">
+                            Невелика квартира
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="home"
+                                   data-points="maincoon:2 bengal:1">
+                            Простора квартира
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="home"
+                                   data-points="maincoon:2 bengal:2">
+                            Приватний будинок
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>3. Який клімат у вашому місті й удома?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="climate" required
+                                   data-points="siamese:2 bengal:1 maincoon:-1"
+                                   data-no="persian">
+                            Спекотне літо, вдома тепло й навіть душно
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="climate"
+                                   data-points="british:1 fold:1">
+                            Помірний — без сильної спеки й морозів
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="climate"
+                                   data-points="maincoon:2 persian:1 british:1 siamese:-2">
+                            Холодна зима, у квартирі буває прохолодно
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>4. Скільки часу ви готові приділяти шерсті кота?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="care" required
+                                   data-points="british:1 siamese:1 bengal:1 maincoon:-1"
+                                   data-no="persian">
+                            Кілька хвилин на тиждень
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="care"
+                                   data-points="fold:1 maincoon:1 british:1">
+                            Кілька разів на тиждень по 10–15 хвилин
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="care"
+                                   data-points="persian:2 maincoon:1">
+                            Із задоволенням розчісуватиму щодня
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>5. Який характер вам до душі?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="temper" required
+                                   data-points="persian:2 fold:2 british:1">
+                            Спокійний і лагідний — щоб тихо дрімав поруч
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="temper"
+                                   data-points="bengal:2 siamese:1">
+                            Активний непосида, з яким можна гратися
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="temper"
+                                   data-points="siamese:2">
+                            Балакучий друг, що всюди ходить за мною
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="temper"
+                                   data-points="maincoon:2 fold:1">
+                            Добродушний велетень, який любить усю родину
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>6. Хто ще живе з вами? <span class="hint">(можна обрати кілька або жодного)</span></legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="family"
+                                   data-points="maincoon:2 british:2 persian:-1">
+                            У домі є маленькі діти
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="family"
+                                   data-points="maincoon:1 british:1 bengal:1 siamese:-1">
+                            Є собака або інші тварини
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="family"
+                                   data-points="siamese:1 persian:1 fold:1">
+                            Я живу сам або сама
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>7. Як ви ставитеся до котячих «розмов»?</legend>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="noise" required
+                                   data-points="persian:1 british:1 fold:1 siamese:-2">
+                            Люблю тишу — мені потрібен небагатослівний кіт
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="noise"
+                                   data-points="siamese:2 bengal:1">
+                            Не проти, якщо кіт «розповідатиме» про свій день
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="quiz-buttons">
+                    <button class="button" type="submit">Готово</button>
+                    <button class="button button-light" type="reset">Скинути відповіді</button>
+                </div>
+            </form>
+
+            <!-- Результати: усі сховані (hidden), JavaScript показує лише один -->
+            <article class="result" id="result-british" tabindex="-1" hidden>
+                <img src="img/british.jpg" width="512" height="522" loading="lazy" alt="Сіро-блакитний британський кіт із бурштиновими очима лежить на дивані">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Британська короткошерста</h2>
+                    <p>Спокійна, врівноважена й самодостатня — справжній аристократ у плюшевій шубці. Британська кішка терпляче чекатиме вас із роботи, не влаштовуючи безладу, а ввечері охоче вмоститься поруч на дивані. Коротку щільну шерсть легко доглядати, а з дітьми та іншими тваринами британці ладнають мирно й з гідністю.</p>
+                    <p>Пам'ятайте: британці схильні до зайвої ваги, тож стежте за порціями й не забувайте про ігри.</p>
+                    <a class="more" href="breeds.html#british">Історія породи →</a>
+                </div>
+            </article>
+
+            <article class="result" id="result-maincoon" tabindex="-1" hidden>
+                <img src="img/maincoon.jpg" width="443" height="680" loading="lazy" alt="Сріблястий мейн-кун із китичками на вухах сидить, піднявши лапу">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Мейн-кун</h2>
+                    <p>Добродушний велетень із китичками на вухах і розкішним пухнастим хвостом. Мейн-кун любить усю родину, терплячий до дітей і замість гучного нявкання тихенько «цвірінькає». Йому потрібні простір, міцне високе дряпало й розчісування кілька разів на тиждень — зате натомість ви отримаєте відданого, розумного й неймовірно лагідного друга.</p>
+                    <p>Густа шерсть добре гріє, тож мейн-куну затишно навіть у прохолодній оселі.</p>
+                    <a class="more" href="breeds.html#maincoon">Історія породи →</a>
+                </div>
+            </article>
+
+            <article class="result" id="result-siamese" tabindex="-1" hidden>
+                <img src="img/siamese.webp" width="973" height="987" loading="lazy" alt="Сіамська кішка з темною мордочкою та блакитними очима">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Сіамська</h2>
+                    <p>Елегантна, жвава й надзвичайно балакуча — сіамська кішка всюди ходитиме за вами й «розповідатиме» про все на світі. Вона щиро прив'язується до людини, тому найщасливіша там, де господар багато часу проводить удома. Коротка шерсть майже не потребує догляду, а теплолюбна натура робить її ідеальною компаньйонкою для теплої оселі.</p>
+                    <p>Сіамці не люблять самотності й нудьги — даруйте їм увагу та побільше іграшок.</p>
+                    <a class="more" href="breeds.html#siamese">Історія породи →</a>
+                </div>
+            </article>
+
+            <article class="result" id="result-fold" tabindex="-1" hidden>
+                <img src="img/fold.webp" width="736" height="1029" loading="lazy" alt="Шотландська висловуха кішка із загнутими вушками й жовтими очима">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Шотландська висловуха</h2>
+                    <p>М'яка, спокійна й зворушлива, з крихітними вушками, загнутими вперед, — шотландська висловуха ніби створена для затишних вечорів під пледом. Вона любить людей, але не вимагає безперервних ігор, тихо почувається в квартирі й добре ладнає з дітьми.</p>
+                    <p>Важливо: ген, що дає загнуті вушка, може впливати на суглоби, тому кішку варто регулярно показувати ветеринару й брати лише у відповідального заводчика.</p>
+                    <a class="more" href="breeds.html#fold">Історія породи →</a>
+                </div>
+            </article>
+
+            <article class="result" id="result-bengal" tabindex="-1" hidden>
+                <img src="img/bengal.webp" width="720" height="720" loading="lazy" alt="Бенгальська кішка із золотистою плямистою шерстю гуляє на шлейці подвір'ям">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Бенгальська</h2>
+                    <p>Маленький домашній леопард у золотистій плямистій шубці. Бенгальська кішка енергійна, допитлива й дуже розумна: вона вивчає команди, ходить на повідку й не відмовиться погратися з водою. Їй потрібні простір, полиці для лазіння та господар, який із радістю проводитиме час у грі.</p>
+                    <p>Без руху й уваги бенгали швидко нудьгують, тож готуйтеся до активних щоденних забав.</p>
+                    <a class="more" href="breeds.html#bengal">Історія породи →</a>
+                </div>
+            </article>
+
+            <article class="result" id="result-persian" tabindex="-1" hidden>
+                <img src="img/persian.jpg" width="357" height="500" loading="lazy" alt="Руда пухнаста перська кішка з пласкою мордочкою">
+                <div>
+                    <p class="result-label">Вам підійде</p>
+                    <h2>Перська</h2>
+                    <p>Ніжна, тиха й розкішна — перська кішка найбільше любить відпочивати поруч із господарем у спокійній оселі. Її пишна шерсть — справжня окраса, але водночас і щоденна турбота: розчісувати перса треба кожного дня.</p>
+                    <p>Через пласку мордочку персам важко в спеку, тому найкомфортніше їм у помірному або прохолодному кліматі.</p>
+                    <a class="more" href="breeds.html#persian">Історія породи →</a>
+                </div>
+            </article>
+
+            <p class="note text">Це лише підказка: характер кожного кота неповторний, а повністю безпечних для алергіків порід не існує. І не забувайте про притулки — там на свій дім чекають чудові безпородні коти, такі ж ласкаві й віддані.</p>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>🐾 МурГід · навчальний проєкт з дисципліни «Веб-технології», 2026</p>
+            <p><a href="index.html">Головна</a> · <a href="breeds.html">Породи</a></p>
+        </div>
+    </footer>
+
+    <script src="js/choose.js"></script>
+</body>
+</html>

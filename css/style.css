@@ -1,0 +1,455 @@
+/* =====================================================
+   МурГід — стилі для всіх трьох сторінок
+   Підхід "mobile first": спочатку пишемо стилі для телефона,
+   а в кінці файлу медіазапити (37.5rem = 600px і 56.25rem = 900px)
+   розширюють макет для планшета й комп'ютера.
+   ===================================================== */
+
+/* ---------- Змінні: кольори й відступи в одному місці ---------- */
+:root {
+    --bg: #fdf6ee;
+    --text: #2d2a32;
+    --muted: #5e5966;
+    --accent: #b24a1b;
+    --accent-dark: #8c3a14;
+    --accent-light: #f5e1cf;
+    --line: #eadfd2;
+    --white: #ffffff;
+    --gap: 1rem;
+    --radius: 0.75rem;
+    --text-width: 65ch;     /* зручна довжина рядка для читання */
+}
+
+/* ---------- Базові стилі ---------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+}
+
+/* clamp(мінімум, плавне значення, максимум) — заголовок росте разом з екраном */
+h1 { font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem); }
+h2 { font-size: clamp(1.4rem, 1.15rem + 1.2vw, 2rem); }
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 1rem; }
+
+img {
+    max-width: 100%;   /* картинка ніколи не ширша за контейнер */
+    height: auto;      /* і не сплющується */
+    display: block;
+}
+
+a { color: var(--accent); }
+
+a:hover { color: var(--accent-dark); }
+
+/* Видимий фокус для тих, хто ходить по сайту клавішею Tab */
+:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Атрибут hidden має ховати елемент навіть якщо в нього є display: grid */
+[hidden] {
+    display: none !important;
+}
+
+/* Головна обгортка: обмежує ширину на великих екранах і центрує вміст */
+.container {
+    max-width: 70rem;
+    margin: 0 auto;
+    padding-inline: var(--gap);
+}
+
+section {
+    padding-block: 1.5rem;
+}
+
+/* Текст абзацами — не ширше 65 символів, щоб було зручно читати */
+.text,
+.lead {
+    max-width: var(--text-width);
+}
+
+/* ---------- Шапка й меню (Flexbox) ---------- */
+.header {
+    background: var(--white);
+    border-bottom: 3px solid var(--accent-light);
+}
+
+.header .container {
+    display: flex;
+    flex-direction: column;     /* на телефоні: логотип зверху, меню під ним */
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.75rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;            /* якщо пункти не влазять — переносяться */
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    display: block;
+    padding: 0.6rem 1rem;       /* достатньо велика ціль для пальця */
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu a:hover {
+    background: var(--accent-light);
+}
+
+/* Поточна сторінка в меню */
+.menu a.active {
+    background: var(--accent);
+    color: var(--white);
+}
+
+/* ---------- Банер на головній ---------- */
+.banner {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: var(--radius);
+}
+
+/* ---------- Фото котів: усі однакового розміру ----------
+   aspect-ratio робить однакову рамку 4:5 для фото різних пропорцій,
+   object-fit: cover заповнює рамку без сплющування (зайве обрізається) */
+.breed-photo img,
+.result img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;   /* обрізаємо знизу, щоб не зрізати вуха */
+    border-radius: var(--radius);
+}
+
+/* ---------- Вступ на початку кожної сторінки ---------- */
+.intro {
+    padding-block: 2.5rem 1rem;
+}
+
+/* Великий вступний текст */
+.lead {
+    font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
+    line-height: 1.65;
+}
+
+/* Посилання зі стрілкою: "Читати далі →" */
+.more {
+    display: inline-block;
+    padding-block: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-underline-offset: 0.25em;
+}
+
+/* ---------- Головна: блок "Куди вирушити далі" (CSS Grid) ---------- */
+.next {
+    border-top: 2px solid var(--line);
+    margin-top: 1rem;
+    padding-top: 2rem;
+}
+
+.next-grid {
+    display: grid;
+    grid-template-columns: 1fr;    /* телефон: один під одним */
+    gap: 1.5rem 3rem;
+}
+
+.next-grid p {
+    color: var(--muted);
+}
+
+/* ---------- Сторінка "Породи" ---------- */
+/* Швидкі переходи до породи */
+.jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+}
+
+.jump a {
+    display: block;
+    padding: 0.4rem 0.9rem;
+    border: 2px solid var(--accent);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.jump a:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
+/* Одна порода: картинка + текст, між породами — тонка лінія */
+.breed {
+    display: grid;
+    grid-template-columns: 1fr;    /* телефон: усе в один стовпчик */
+    gap: var(--gap);
+    padding-block: 2rem;
+    border-top: 2px solid var(--line);
+    scroll-margin-top: 1rem;       /* при переході по якорю не прилипає до краю */
+}
+
+.breed-photo img {
+    max-width: 16rem;
+}
+
+.breed p {
+    max-width: var(--text-width);
+}
+
+/* Факти про породу у вигляді "таблеток" */
+.facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.facts li {
+    background: var(--accent-light);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.fact-title {
+    margin-top: 1.25rem;
+    color: var(--accent);
+}
+
+/* ---------- Сторінка "Кому підходить": опитування ---------- */
+.quiz {
+    margin-top: 1.5rem;
+}
+
+/* Одне запитання */
+.quiz fieldset {
+    border: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+}
+
+.quiz legend {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    padding: 0;
+}
+
+.hint {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+/* Варіанти відповіді: Grid сам рахує, скільки колонок влізе — без медіазапиту */
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: 0.25rem 1rem;
+}
+
+/* Увесь рядок клікабельний, а не лише маленький кружечок */
+.option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;           /* ≥ 44px — зручно натискати пальцем */
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.option:hover {
+    background: var(--white);
+}
+
+/* Обраний варіант підсвічується */
+.option:has(input:checked) {
+    background: var(--accent-light);
+    font-weight: 600;
+}
+
+.option input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: var(--accent);   /* колір галочки й кружечка */
+}
+
+/* Кнопки "Готово" і "Скинути" */
+.quiz-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.button {
+    padding: 0.8rem 2rem;
+    border: 2px solid var(--accent);
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--white);
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+.button-light {
+    background: transparent;
+    color: var(--accent);
+}
+
+.button-light:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+}
+
+/* Результат підбору */
+.result {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem 2rem;
+    align-items: start;
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: var(--accent-light);
+}
+
+.result:focus {
+    outline: none;   /* фокус ставить JavaScript, рамка тут не потрібна */
+}
+
+.result img {
+    max-width: 12rem;
+}
+
+.result p {
+    max-width: var(--text-width);
+}
+
+.result-label {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent);
+}
+
+.note {
+    margin-top: 2rem;
+    color: var(--muted);
+}
+
+/* ---------- Підвал ---------- */
+.footer {
+    margin-top: 2rem;
+    background: #3a2f2a;
+    color: #f3e9df;
+    padding: 1.25rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer p {
+    margin: 0.25rem 0;
+}
+
+.footer a {
+    color: #ffd9bd;
+}
+
+/* =====================================================
+   ПЛАНШЕТ: екран від 37.5rem (600px)
+   ===================================================== */
+@media (min-width: 37.5rem) {
+
+    /* Шапка: логотип ліворуч, меню праворуч в один рядок */
+    .header .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    /* Результат: картинка ліворуч, текст праворуч */
+    .result {
+        grid-template-columns: 10rem 1fr;
+        padding: 2rem;
+    }
+}
+
+/* =====================================================
+   КОМП'ЮТЕР: екран від 56.25rem (900px)
+   ===================================================== */
+@media (min-width: 56.25rem) {
+
+    .intro {
+        padding-block: 4rem 1.5rem;
+    }
+
+    /* Два посилання на головній — поруч, у дві колонки */
+    .next-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Порода: картинка ліворуч (фіксована ширина), текст праворуч */
+    .breed {
+        grid-template-columns: 16rem 1fr;
+        gap: 2.5rem;
+    }
+
+    .breed-photo img {
+        position: sticky;   /* картинка "їде" разом зі скролом */
+        top: 1rem;
+    }
+
+    .result {
+        grid-template-columns: 12rem 1fr;
+    }
+}
