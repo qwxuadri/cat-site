@@ -62,11 +62,6 @@ a:hover { color: var(--accent-dark); }
     outline-offset: 3px;
 }
 
-/* Атрибут hidden має ховати елемент навіть якщо в нього є display: grid */
-[hidden] {
-    display: none !important;
-}
-
 /* Головна обгортка: обмежує ширину на великих екранах і центрує вміст */
 .container {
     max-width: 70rem;
@@ -144,9 +139,9 @@ section {
 /* ---------- Фото котів: усі однакового розміру ----------
    aspect-ratio робить однакову рамку 4:5 для фото різних пропорцій,
    object-fit: cover заповнює рамку без сплющування (зайве обрізається) */
-.breed-photo img,
-.result img {
+.breed-photo img {
     width: 100%;
+    max-width: 16rem;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: center top;   /* обрізаємо знизу, щоб не зрізати вуха */
@@ -190,7 +185,7 @@ section {
     color: var(--muted);
 }
 
-/* ---------- Сторінка "Породи" ---------- */
+/* ---------- Сторінки "Породи" і "Кому підходить" ---------- */
 /* Швидкі переходи до породи */
 .jump {
     display: flex;
@@ -225,12 +220,15 @@ section {
     scroll-margin-top: 1rem;       /* при переході по якорю не прилипає до краю */
 }
 
-.breed-photo img {
-    max-width: 16rem;
-}
-
 .breed p {
     max-width: var(--text-width);
+}
+
+/* Розділ одразу після останньої породи теж відділяємо лінією
+   (знак + означає "елемент, що стоїть одразу після") */
+.breed + section {
+    border-top: 2px solid var(--line);
+    padding-top: 2rem;
 }
 
 /* Факти про породу у вигляді "таблеток" */
@@ -253,139 +251,6 @@ section {
 .fact-title {
     margin-top: 1.25rem;
     color: var(--accent);
-}
-
-/* ---------- Сторінка "Кому підходить": опитування ---------- */
-.quiz {
-    margin-top: 1.5rem;
-}
-
-/* Одне запитання */
-.quiz fieldset {
-    border: none;
-    margin: 0 0 1.75rem;
-    padding: 0;
-}
-
-.quiz legend {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    padding: 0;
-}
-
-.hint {
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: var(--muted);
-}
-
-/* Варіанти відповіді: Grid сам рахує, скільки колонок влізе — без медіазапиту */
-.options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
-    gap: 0.25rem 1rem;
-}
-
-/* Увесь рядок клікабельний, а не лише маленький кружечок */
-.option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-height: 2.75rem;           /* ≥ 44px — зручно натискати пальцем */
-    padding: 0.4rem 0.75rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-}
-
-.option:hover {
-    background: var(--white);
-}
-
-/* Обраний варіант підсвічується */
-.option:has(input:checked) {
-    background: var(--accent-light);
-    font-weight: 600;
-}
-
-.option input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin: 0;
-    flex-shrink: 0;
-    accent-color: var(--accent);   /* колір галочки й кружечка */
-}
-
-/* Кнопки "Готово" і "Скинути" */
-.quiz-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.button {
-    padding: 0.8rem 2rem;
-    border: 2px solid var(--accent);
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--white);
-    font: inherit;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-.button:hover {
-    background: var(--accent-dark);
-    border-color: var(--accent-dark);
-}
-
-.button-light {
-    background: transparent;
-    color: var(--accent);
-}
-
-.button-light:hover {
-    background: var(--accent-light);
-    border-color: var(--accent);
-}
-
-/* Результат підбору */
-.result {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem 2rem;
-    align-items: start;
-    margin-top: 2.5rem;
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    background: var(--accent-light);
-}
-
-.result:focus {
-    outline: none;   /* фокус ставить JavaScript, рамка тут не потрібна */
-}
-
-.result img {
-    max-width: 12rem;
-}
-
-.result p {
-    max-width: var(--text-width);
-}
-
-.result-label {
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--accent);
-}
-
-.note {
-    margin-top: 2rem;
-    color: var(--muted);
 }
 
 /* ---------- Підвал ---------- */
@@ -417,10 +282,10 @@ section {
         justify-content: space-between;
     }
 
-    /* Результат: картинка ліворуч, текст праворуч */
-    .result {
-        grid-template-columns: 10rem 1fr;
-        padding: 2rem;
+    /* Порода: невелике фото ліворуч, текст праворуч */
+    .breed {
+        grid-template-columns: 12rem 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -447,9 +312,5 @@ section {
     .breed-photo img {
         position: sticky;   /* картинка "їде" разом зі скролом */
         top: 1rem;
-    }
-
-    .result {
-        grid-template-columns: 12rem 1fr;
     }
 }
